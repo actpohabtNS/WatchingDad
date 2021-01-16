@@ -1,21 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 
-export default function App() {
+import SignupScreen from './src/screens/SignupScreen'
+import SigninScreen from './src/screens/SigninScreen'
+import LocationScreen from './src/screens/LocationScreen'
+import AreasScreen from './src/screens/AreasScreen'
+
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+
+const switchNavigator = createSwitchNavigator({
+  loginFlow: createStackNavigator({
+    Signup: SignupScreen,
+    Signin: SigninScreen,
+  }, {
+    initialRouteName: 'Signup',
+    defaultNavigationOptions: {
+      header: () => false
+    },
+  }),
+  mainFlow: createBottomTabNavigator({
+    Location: LocationScreen,
+    Areas: AreasScreen,
+  }, {
+    initialRouteName: 'Location',
+  })
+})
+
+const App = createAppContainer(switchNavigator);
+
+export default () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    //<Provider>
+      <SafeAreaProvider>
+        <App />
+      </SafeAreaProvider>
+    //</Provider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
