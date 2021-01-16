@@ -1,10 +1,18 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { call } from 'react-native-reanimated';
 import { withNavigation } from 'react-navigation'
 
-const NavLink = ({ text, routeName, navigation, passedStyle }) => {
+const NavLink = ({ text, routeName, navigation, callback, passedStyle }) => {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate(routeName)} style={passedStyle}>
+        <TouchableOpacity
+            onPress={() => {
+                navigation.navigate(routeName);
+
+                if (callback) callback();
+            }}
+            style={passedStyle}
+        >
             <Text style={styles.link}>
                 {text}
             </Text>

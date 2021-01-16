@@ -36,6 +36,10 @@ export const userChanged = (text) => ({
     payload: text
   })
 
+export const toDefault = () => ({
+  type: 'to_default'
+})
+
 export const signupUser = ({ email, password }) => 
   (dispatch) => {
    dispatch({ type: 'attempt_signup_user' });

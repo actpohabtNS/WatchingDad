@@ -2,12 +2,17 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Input } from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import UserForm from '../components/UserForm'
 import NavLink from '../components/NavLink'
 import st_g from '../styles'
 
-const SigninScreen = () => {
+import { emailChanged, passwordChanged, signinUser, toDefault } from '../actions'
+
+const SigninScreen = (props) => {
+  const { email, password, loading, error, emailChanged, passwordChanged, signinUser, toDefault } = props;
+
   return (
     <SafeAreaView style={{ flex: 1}}>
       
@@ -15,12 +20,16 @@ const SigninScreen = () => {
         <UserForm
           title="Sign In"
           buttonText="Sign In"
+          buttonLoading={loading}
+          onSubmit={() => signinUser({ email, password })}
         >
 
           <Input
             placeholder="email@address.com"
             label="Your Email Address"
             leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'grey' }}
+            onChangeText={emailChanged}
+            value={email}
           />
 
           <Input
@@ -28,10 +37,12 @@ const SigninScreen = () => {
             placeholder="Password"
             label="Password"
             leftIcon={{ type: 'font-awesome', name: 'lock', color: 'grey' }}
+            onChangeText={passwordChanged}
+            value={password}
           />
 
-          { false
-          ? <Text style={st_g.errorMessage}>Authentication failed!</Text>
+          { error
+          ? <Text style={st_g.errorMessage}>{error}</Text>
           : null }
 
         </UserForm>
@@ -39,6 +50,7 @@ const SigninScreen = () => {
         <NavLink
           text="Don't have an account? Sign Up!"
           routeName="Signup"
+          callback={toDefault}
           passedStyle={styles.navLinkStyle}
         />
       </View>
@@ -54,4 +66,6 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SigninScreen;
+const mapStateWithProps = state => ({ ...state.auth })
+
+export default connect(mapStateWithProps, { emailChanged, passwordChanged, signinUser, toDefault })(SigninScreen);

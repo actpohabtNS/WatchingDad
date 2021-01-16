@@ -3,6 +3,5 @@ import { combineReducers } from 'redux'
 import AuthReducer from './AuthReducer'
 
 export default combineReducers({
-  signUpAuth: AuthReducer,
-  signInAuth: AuthReducer,
+  auth: AuthReducer,
 })

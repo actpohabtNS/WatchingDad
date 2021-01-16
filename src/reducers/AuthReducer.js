@@ -34,6 +34,9 @@ export default (state = INIT_STATE, action) => {
         case 'attempt_signin_user':
             return { ...state, loading: true, error: '' };
             
+        case 'to_default':
+            return { ...INIT_STATE };
+
         default:
             return state;
     }

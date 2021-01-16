@@ -8,10 +8,10 @@ import UserForm from '../components/UserForm'
 import NavLink from '../components/NavLink'
 import st_g from '../styles'
 
-import { nameChanged, emailChanged, passwordChanged, signupUser } from '../actions'
+import { nameChanged, emailChanged, passwordChanged, signupUser, toDefault } from '../actions'
 
 const SignupScreen = (props) => {
-  const { name, email, password, loading, error, nameChanged, emailChanged, passwordChanged, signupUser } = props
+  const { name, email, password, loading, error, nameChanged, emailChanged, passwordChanged, signupUser, toDefault } = props
 
   return (
     <SafeAreaView style={{ flex: 1}}>
@@ -57,6 +57,7 @@ const SignupScreen = (props) => {
         <NavLink
           text="Already have an account? Sign In!"
           routeName="Signin"
+          callback={toDefault}
           passedStyle={styles.navLinkStyle}
         />
       </View>
@@ -72,6 +73,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateWithProps = state => ({ ...state.signUpAuth })
+const mapStateWithProps = state => ({ ...state.auth })
 
-export default connect(mapStateWithProps, { nameChanged, emailChanged, passwordChanged, signupUser })(SignupScreen);
+export default connect(mapStateWithProps, { nameChanged, emailChanged, passwordChanged, signupUser, toDefault })(SignupScreen);
