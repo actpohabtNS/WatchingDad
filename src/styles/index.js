@@ -6,5 +6,10 @@ export default StyleSheet.create({
   },
   marVer: {
     marginVertical: 20,
-  }
+  },
+  errorMessage: {
+    fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+  }, 
 })

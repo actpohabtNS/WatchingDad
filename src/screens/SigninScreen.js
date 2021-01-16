@@ -5,6 +5,7 @@ import { Input } from 'react-native-elements'
 
 import UserForm from '../components/UserForm'
 import NavLink from '../components/NavLink'
+import st_g from '../styles'
 
 const SigninScreen = () => {
   return (
@@ -28,6 +29,10 @@ const SigninScreen = () => {
             label="Password"
             leftIcon={{ type: 'font-awesome', name: 'lock', color: 'grey' }}
           />
+
+          { false
+          ? <Text style={st_g.errorMessage}>Authentication failed!</Text>
+          : null }
 
         </UserForm>
 

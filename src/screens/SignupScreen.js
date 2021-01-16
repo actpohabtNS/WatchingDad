@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Input } from 'react-native-elements'
+import { View, StyleSheet } from 'react-native'
+import { Input, Text } from 'react-native-elements'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import UserForm from '../components/UserForm'
 import NavLink from '../components/NavLink'
+import st_g from '../styles'
 
 const SignupScreen = () => {
   return (
@@ -33,6 +34,10 @@ const SignupScreen = () => {
             label="Password"
             leftIcon={{ type: 'font-awesome', name: 'lock', color: 'grey' }}
           />
+
+          { false
+          ? <Text style={st_g.errorMessage}>Authentication failed!</Text>
+          : null }
 
         </UserForm>
 
