@@ -16,6 +16,8 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import reducers from './src/reducers'
 
+import { setNavigator } from './src/navigationRef'
+
 const switchNavigator = createSwitchNavigator({
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
@@ -44,7 +46,7 @@ export default () => {
   return (
     <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
       <SafeAreaProvider>
-        <App />
+        <App ref={navigator => setNavigator(navigator)} />
       </SafeAreaProvider>
     </Provider>
   )
