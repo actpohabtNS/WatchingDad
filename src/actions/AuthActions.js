@@ -36,7 +36,7 @@ export const userChanged = (text) => ({
 
 export const signupUser = ({ email, password }) => 
   (dispatch) => {
-   dispatch({ type: 'attempt_singup_user' });
+   dispatch({ type: 'attempt_signup_user' });
 
    firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(user => dispatch({ type: 'signup_user_success', payload: user }))
@@ -46,7 +46,7 @@ export const signupUser = ({ email, password }) =>
 
 export const signinUser = ({ email, password }) => 
    (dispatch) => {
-    dispatch({ type: 'attempt_singin_user' });
+    dispatch({ type: 'attempt_signin_user' });
 
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => dispatch({ type: 'signin_user_success', payload: user }))

@@ -11,7 +11,7 @@ import st_g from '../styles'
 import { nameChanged, emailChanged, passwordChanged, signupUser } from '../actions'
 
 const SignupScreen = (props) => {
-  const { name, email, password, error, nameChanged, emailChanged, passwordChanged, signupUser } = props
+  const { name, email, password, loading, error, nameChanged, emailChanged, passwordChanged, signupUser } = props
 
   return (
     <SafeAreaView style={{ flex: 1}}>
@@ -20,6 +20,7 @@ const SignupScreen = (props) => {
         <UserForm
           title="Sign Up"
           buttonText="Sign Up"
+          buttonLoading={loading}
           onSubmit={() => signupUser({ email, password })}
         >
           <Input
@@ -48,7 +49,7 @@ const SignupScreen = (props) => {
           />
 
           { error
-          ? <Text style={st_g.errorMessage}>Authentication failed!</Text>
+          ? <Text style={st_g.errorMessage}>{error}</Text>
           : null }
 
         </UserForm>

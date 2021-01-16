@@ -4,7 +4,7 @@ import { Text, Input, Button } from 'react-native-elements'
 
 import st_g from '../styles'
 
-const UserForm = ({ title, buttonText, onSubmit, children }) => {
+const UserForm = ({ title, buttonText, onSubmit, buttonLoading, children }) => {
   return (
     <View style={[st_g.marHor, st_g.marVer, styles.container, ]}>
       <Text h2 style={{ textAlign: 'center', paddingBottom: 20 }}>{title}</Text>
@@ -18,6 +18,8 @@ const UserForm = ({ title, buttonText, onSubmit, children }) => {
         type="solid"
         title={buttonText}
         onPress={onSubmit}
+        disabled={buttonLoading}
+        loading={buttonLoading}
       />
     </View>
   )

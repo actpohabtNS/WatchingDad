@@ -24,7 +24,7 @@ export default (state = INIT_STATE, action) => {
 
         case 'signup_user_success':
         case 'signin_user_success':
-            return {...state, user: action.payload, ...INIT_STATE};
+            return {...state, ...INIT_STATE, user: action.payload};
 
         case 'signup_user_fail':
         case 'signin_user_fail':
