@@ -10,7 +10,7 @@ const INIT_STATE ={
 
 export default (state = INIT_STATE, action) => {
     switch (action.type){
-        case 'isAdult_changed':
+        case 'is_adult_changed':
             return {...state, isAdult: action.payload};
 
         case 'name_changed':
@@ -22,13 +22,16 @@ export default (state = INIT_STATE, action) => {
         case 'password_changed':
             return {...state, password: action.payload};
 
+        case 'signup_user_success':
         case 'signin_user_success':
             return {...state, user: action.payload, ...INIT_STATE};
 
+        case 'signup_user_fail':
         case 'signin_user_fail':
             return { ...state, error: action.payload, loading: false, password: ''};
 
-        case 'attempt_login_user':
+        case 'attempt_signup_user':
+        case 'attempt_signin_user':
             return { ...state, loading: true, error: '' };
             
         default:

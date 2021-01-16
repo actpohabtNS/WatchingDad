@@ -3,6 +3,8 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
+import useInitAuth from './src/hooks/useInitAuth'
+
 import SignupScreen from './src/screens/SignupScreen'
 import SigninScreen from './src/screens/SigninScreen'
 import LocationScreen from './src/screens/LocationScreen'
@@ -11,6 +13,8 @@ import AreasScreen from './src/screens/AreasScreen'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk'
+import reducers from './src/reducers'
 
 const switchNavigator = createSwitchNavigator({
   loginFlow: createStackNavigator({
@@ -33,11 +37,15 @@ const switchNavigator = createSwitchNavigator({
 const App = createAppContainer(switchNavigator);
 
 export default () => {
+  useEffect(() => {
+    useInitAuth();
+  }, [])
+
   return (
-    //<Provider>
+    <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
       <SafeAreaProvider>
         <App />
       </SafeAreaProvider>
-    //</Provider>
+    </Provider>
   )
 }

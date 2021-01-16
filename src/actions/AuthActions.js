@@ -34,23 +34,21 @@ export const userChanged = (text) => ({
     payload: text
   })
 
-export const loginUser = ({ email, password }) => 
+export const signupUser = ({ email, password }) => 
+  (dispatch) => {
+   dispatch({ type: 'attempt_singup_user' });
+
+   firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(user => dispatch({ type: 'signup_user_success', payload: user }))
+    .catch(() => dispatch({ type: 'signup_user_fail', payload: "Sign Up failed." }))
+     
+ }
+
+export const signinUser = ({ email, password }) => 
    (dispatch) => {
-    dispatch({ type: 'attempt_login_user' });
+    dispatch({ type: 'attempt_singin_user' });
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
-      .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
-          .catch(() => loginUserFail(dispatch, "Authentication Failed."))
-      })
+      .then(user => dispatch({ type: 'signin_user_success', payload: user }))
+      .catch(() => dispatch({ type: 'signin_user_fail', payload: "Authentication failed." }))
   }
-
-const loginUserFail = (dispatch, error) => {
-  dispatch({ type: 'login_user_fail', payload: error })
-}
-
-const loginUserSuccess = (dispatch, user) => {
-  dispatch({ type: 'login_user_success', payload: user });
-}
